@@ -28,6 +28,7 @@ class Item:
     def __init__(self,numero_item,preguntas):
         self.numero_item = numero_item
         self.preguntas = preguntas
+        self.preguntaC = self.preguntaCorrecta()
     
     @staticmethod
     def primera_P(i,key):
@@ -55,6 +56,16 @@ class Csv:
         self.uArchivo = uArchivo
         self.df = None
         self.items = []
+        self.atributos = {
+            'n': 'n',
+            'rspP': 'rspP',
+            'pBis': 'pBis',
+            'discrim': 'discrim',
+            'lower': 'lower',
+            'mid50': 'mid50',
+            'mid75': 'mid75',
+            'upper': 'upper'
+        }
 
     
     def crearDf(self):
@@ -93,22 +104,11 @@ class Csv:
         return colores
     
     def valoresPreguntasC(self, valor):
-        # Mapeo de valores a atributos
-        atributos = {
-            'n': 'n',
-            'rspP': 'rspP',
-            'pBis': 'pBis',
-            'discrim': 'discrim',
-            'lower': 'lower',
-            'mid50': 'mid50',
-            'mid75': 'mid75',
-            'upper': 'upper'
-        }
 
         # Verificar si el valor está en el diccionario
-        if valor in atributos:
+        if valor in self.atributos:
             # Utilizar list comprehension para obtener los valores
-            valores = [getattr(i.preguntaCorrecta(), atributos[valor]) for i in self.items]
+            valores = [getattr(i.preguntaCorrecta(), self.atributos[valor]) for i in self.items]
             return valores
         else:
             return 'valor invalido'        

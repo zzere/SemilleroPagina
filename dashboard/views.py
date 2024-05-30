@@ -28,6 +28,7 @@ def Seleccionar(request):
                 labels = csv.nombreItems()
                 data = csv.valoresPreguntasC(label)
                 color = csv.colores(label)
+                columnas = csv.atributos.values()
             except:
                 items = "al mal en el try"
                 return render(request,'dashboard/seleccionar.html', {'form': form , 'items': items})
@@ -37,6 +38,8 @@ def Seleccionar(request):
                                                                       'labels': labels,
                                                                       'data': data,
                                                                       'color': color,
-                                                                      'label': label})
+                                                                      'label': label,
+                                                                      'columnas': columnas,
+                                                                      })
 
     return render(request,'dashboard/seleccionar.html', {'form': form , 'items': items})
